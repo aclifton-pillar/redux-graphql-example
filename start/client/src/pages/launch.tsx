@@ -3,9 +3,10 @@ import { gql, useQuery } from '@apollo/client';
 
 import { LAUNCH_TILE_DATA } from './launches';
 import { Loading, Header, LaunchDetail } from '../components';
-import { ActionButton } from '../containers';
 import { RouteComponentProps } from '@reach/router';
 import * as LaunchDetailsTypes from './__generated__/LaunchDetails';
+
+import BookingButtonConnector from '../components/booking-button-connector';
 
 export const GET_LAUNCH_DETAILS = gql`
   query LaunchDetails($launchId: ID!) {
@@ -46,7 +47,7 @@ const Launch: React.FC<LaunchProps> = ({ launchId }) => {
           {data && data.launch && data.launch.mission && data.launch.mission.name}
         </Header>
         <LaunchDetail {...data.launch} />
-        <ActionButton {...data.launch} />
+        <BookingButtonConnector {...data.launch} />
       </Fragment>
   );
 }

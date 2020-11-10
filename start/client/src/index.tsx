@@ -9,6 +9,11 @@ import ReactDOM from 'react-dom';
 import Pages from './pages';
 import injectStyles from './styles';
 
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { Provider } from 'react-redux';
+import bookingReducers from "./components/booking-reducers";
+import thunk from "redux-thunk";
+
 // Initialize ApolloClient
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     cache,
@@ -18,12 +23,24 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 }
 });
 
+const prepareStore = () => {
+    const initialState: any = {
+        bookings: [],
+    };
+
+    return createStore(combineReducers([bookingReducers]), initialState, applyMiddleware(thunk));
+};
+
+const store = prepareStore();
+
 injectStyles();
 
 // Pass the ApolloClient instance to the ApolloProvider component
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Pages />
+        <Provider store={store}>
+            <Pages />
+        </Provider>
     </ApolloProvider>,
     document.getElementById('root')
 );
