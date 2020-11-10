@@ -21,7 +21,9 @@ export const GET_MY_TRIPS = gql`
 
 interface ProfileProps extends RouteComponentProps {}
 
-const Profile: React.FC<ProfileProps> = () => {
+const Profile: React.FC<ProfileProps> = ({ bookings }: any) => {
+    console.log('profile');
+    console.log(bookings);
   const {
     data,
     loading,
@@ -38,6 +40,16 @@ const Profile: React.FC<ProfileProps> = () => {
   return (
       <Fragment>
         <Header>My Trips</Header>
+        <h2>Trips to be Booked</h2>
+          {bookings && bookings.length ? (
+              bookings.map((booking: any) => (
+                  <p>{booking.id}</p>
+              ))
+          ) : (
+              <p>No trips to be booked yet</p>
+          )}
+
+        <h2>Booked Trips</h2>
         {data.me && data.me.trips.length ? (
             data.me.trips.map((launch: any) => (
                 <LaunchTile key={launch.id} launch={launch} />

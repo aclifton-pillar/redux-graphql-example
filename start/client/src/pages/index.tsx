@@ -4,7 +4,7 @@ import { Router } from '@reach/router';
 import Launch from './launch';
 import Launches from './launches';
 import Cart from './cart';
-import Profile from './profile';
+import ProfileConnector from './profile-connector';
 import { Footer, PageContainer } from '../components';
 
 export default function Pages() {
@@ -15,7 +15,7 @@ export default function Pages() {
           <Launches path="/" />
           <Launch path="launch/:launchId" />
           <Cart path="cart" />
-          <Profile path="profile" />
+          <ProfileConnector path="profile" />
         </Router>
       </PageContainer>
       <Footer />

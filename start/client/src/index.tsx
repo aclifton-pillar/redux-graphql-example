@@ -24,11 +24,15 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 });
 
 const prepareStore = () => {
+    const reducers = {
+        bookings: bookingReducers,
+    };
+
     const initialState: any = {
         bookings: [],
     };
 
-    return createStore(combineReducers([bookingReducers]), initialState, applyMiddleware(thunk));
+    return createStore(combineReducers(reducers), initialState, applyMiddleware(thunk));
 };
 
 const store = prepareStore();
